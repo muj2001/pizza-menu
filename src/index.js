@@ -77,11 +77,13 @@ function Menu() {
         {pizzaData.map((pizza) => {
           return (
             <Pizza
-              name={pizza.name}
-              ingredients={pizza.ingredients}
-              photoName={pizza.photoName}
-              price={pizza.price}
-              soldOut={pizza.soldOut}
+              pizzaObject={pizza}
+              // name={pizza.name}
+              // ingredients={pizza.ingredients}
+              // photoName={pizza.photoName}
+              // price={pizza.price}
+              // soldOut={pizza.soldOut}
+              key={pizza.name}
             />
           );
         })}
@@ -90,7 +92,7 @@ function Menu() {
   );
 }
 
-function Pizza(props) {
+function Pizza({ pizzaObject, key }) {
   // name: "Pizza Spinaci",
   //   ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
   //   price: 12,
@@ -99,19 +101,19 @@ function Pizza(props) {
 
   return (
     <div className="pizza">
-      <img src={props.photoName} alt="Pizza Spinaci" />
+      <img src={pizzaObject.photoName} alt="Pizza Spinaci" />
       <div>
-        <h3>{props.name}</h3>
+        <h3>{pizzaObject.name}</h3>
         <p>
-          <strong>Ingredients:</strong> {props.ingredients}
+          <strong>Ingredients:</strong> {pizzaObject.ingredients}
         </p>
         <p>
-          {props.soldOut ? (
+          {pizzaObject.soldOut ? (
             "Sold Out"
           ) : (
             <span>
               <strong>Price:</strong>
-              {` Rs. ${props.price}00`}
+              {` Rs. ${pizzaObject.price}00`}
             </span>
           )}
         </p>
@@ -130,8 +132,9 @@ function Footer() {
   setInterval(() => setTime(new Date().toLocaleTimeString()), 1000);
 
   return (
-    <footer>
+    <footer className="order">
       {time}. We're currently {isOpen ? "open" : "closed"}.
+      {isOpen && <button className="btn">Order</button>}
     </footer>
   );
 }
