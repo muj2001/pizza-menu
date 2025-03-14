@@ -70,26 +70,38 @@ function Header() {
 }
 
 function Menu() {
-  return (
-    <main className="menu">
-      <h2>Our Menu</h2>
-      <div className="pizzas">
-        {pizzaData.map((pizza) => {
-          return (
-            <Pizza
-              pizzaObject={pizza}
-              // name={pizza.name}
-              // ingredients={pizza.ingredients}
-              // photoName={pizza.photoName}
-              // price={pizza.price}
-              // soldOut={pizza.soldOut}
-              key={pizza.name}
-            />
-          );
-        })}
-      </div>
-    </main>
-  );
+  if (pizzaData.length > 0) {
+    return (
+      <main className="menu">
+        <h2>Our Menu</h2>
+        <p>
+          Authentic Italian cuisine. {pizzaData.length} creative dishes to
+          choose from. All from our stone oven, all organic, all delicious.
+        </p>
+        <div className="pizzas">
+          {pizzaData.map((pizza) => {
+            return (
+              <Pizza
+                pizzaObject={pizza}
+                // name={pizza.name}
+                // ingredients={pizza.ingredients}
+                // photoName={pizza.photoName}
+                // price={pizza.price}
+                // soldOut={pizza.soldOut}
+                key={pizza.name}
+              />
+            );
+          })}
+        </div>
+      </main>
+    );
+  } else {
+    return (
+      <main className="menu">
+        <h2>No Pizzas Available</h2>
+      </main>
+    );
+  }
 }
 
 function Pizza({ pizzaObject, key }) {
@@ -98,10 +110,13 @@ function Pizza({ pizzaObject, key }) {
   //   price: 12,
   //   photoName: "pizzas/spinaci.jpg",
   //   soldOut: false,
-
   return (
     <div className="pizza">
-      <img src={pizzaObject.photoName} alt="Pizza Spinaci" />
+      <img
+        style={{ filter: `${pizzaObject.soldOut ? "grayscale(1)" : ""}` }}
+        src={pizzaObject.photoName}
+        alt="Pizza Spinaci"
+      />
       <div>
         <h3>{pizzaObject.name}</h3>
         <p>
