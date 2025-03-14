@@ -106,7 +106,14 @@ function Pizza(props) {
           <strong>Ingredients:</strong> {props.ingredients}
         </p>
         <p>
-          <strong>Price:</strong> Rs. {props.price}00
+          {props.soldOut ? (
+            "Sold Out"
+          ) : (
+            <span>
+              <strong>Price:</strong>
+              {` Rs. ${props.price}00`}
+            </span>
+          )}
         </p>
       </div>
     </div>
