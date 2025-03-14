@@ -111,12 +111,8 @@ function Pizza({ pizzaObject, key }) {
   //   photoName: "pizzas/spinaci.jpg",
   //   soldOut: false,
   return (
-    <div className="pizza">
-      <img
-        style={{ filter: `${pizzaObject.soldOut ? "grayscale(1)" : ""}` }}
-        src={pizzaObject.photoName}
-        alt="Pizza Spinaci"
-      />
+    <div className={`pizza ${pizzaObject.soldOut ? "sold-out" : ""}`}>
+      <img src={pizzaObject.photoName} alt="Pizza Spinaci" />
       <div>
         <h3>{pizzaObject.name}</h3>
         <p>
