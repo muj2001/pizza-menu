@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
+import { useState } from "react";
 
 const pizzaData = [
   {
@@ -48,16 +50,47 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
-      <h1>Hello, React!!!!!</h1>
-      <Pizza />
-      <Pizza />
-      <Pizza />
+    <div className="container">
+      <Header />
+      <Menu />
+      <Footer />
     </div>
   );
 }
 
-function Pizza() {
+function Header() {
+  // const style = { color: "red", fontSize: "48px", textTransform: "uppercase" }
+  const style = {};
+
+  return (
+    <header className="header">
+      <h1 style={style}>Mujnuu Pizza Co.</h1>
+    </header>
+  );
+}
+
+function Menu() {
+  return (
+    <main className="menu">
+      <h2>Our Menu</h2>
+      <div className="pizzas">
+        {pizzaData.map((pizza) => {
+          return (
+            <Pizza
+              name={pizza.name}
+              ingredients={pizza.ingredients}
+              photoName={pizza.photoName}
+              price={pizza.price}
+              soldOut={pizza.soldOut}
+            />
+          );
+        })}
+      </div>
+    </main>
+  );
+}
+
+function Pizza(props) {
   // name: "Pizza Spinaci",
   //   ingredients: "Tomato, mozarella, spinach, and ricotta cheese",
   //   price: 12,
@@ -65,17 +98,34 @@ function Pizza() {
   //   soldOut: false,
 
   return (
-    <div>
-      <h2>Pizza Spinaci</h2>
-      <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci" />
-      <p>
-        <strong>Ingredients:</strong> Tomato, mozarella, spinach, and ricotta
-        cheese
-      </p>
-      <p>
-        <strong>Price:</strong> $12.00
-      </p>
+    <div className="pizza">
+      <img src={props.photoName} alt="Pizza Spinaci" />
+      <div>
+        <h3>{props.name}</h3>
+        <p>
+          <strong>Ingredients:</strong> {props.ingredients}
+        </p>
+        <p>
+          <strong>Price:</strong> Rs. {props.price}00
+        </p>
+      </div>
     </div>
+  );
+}
+
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  setInterval(() => setTime(new Date().toLocaleTimeString()), 1000);
+
+  return (
+    <footer>
+      {time}. We're currently {isOpen ? "open" : "closed"}.
+    </footer>
   );
 }
 
